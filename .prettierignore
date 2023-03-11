@@ -1,0 +1,15 @@
+/dist/*
+.local
+.output.js
+/node_modules/**
+
+**/*.svg
+**/*.sh
+
+/public/*
+
+**/keep-vue-map/**
+
+**/*.ejs
+
+*.svg

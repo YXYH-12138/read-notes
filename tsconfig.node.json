@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		// "rootDir": "./",
+		"moduleResolution": "node",
+		"baseUrl": ".",
+		"types": ["node"],
+		"forceConsistentCasingInFileNames": true
+	},
+	"ts-node": {
+		"compilerOptions": {
+			"module": "CommonJS"
+		}
+	},
+	"extends": "./tsconfig.web.json"
+}
