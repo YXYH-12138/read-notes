@@ -1,6 +1,7 @@
 {
 	"name": "shen-ru-qian-chu-nodejs",
 	"version": "1.0.0",
+	"type": "commonjs",
 	"description": "",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"

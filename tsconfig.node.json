@@ -1,16 +1,27 @@
 {
 	"compilerOptions": {
+		"target": "ESNext",
+		"useDefineForClassFields": true,
 		"module": "CommonJS",
-		// "rootDir": "./",
-		"moduleResolution": "node",
+		"strict": true,
+		"jsx": "preserve",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"lib": ["ESNext"],
+		"skipLibCheck": true,
+		"noEmit": true,
 		"baseUrl": ".",
-		"types": ["node"],
-		"forceConsistentCasingInFileNames": true
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"module": "CommonJS"
+		"paths": {
+			"@/*": ["src/*"]
 		}
 	},
-	"extends": "./tsconfig.web.json"
+	"lib": ["esnext", "scripthost"],
+	"include": ["packages/**/*.ts", "packages/**/*.d.ts"],
+	"exclude": ["dist", "**/*.js", "node_modules"]
+	// "ts-node": {
+	// 	"compilerOptions": {
+	// 		"module": "CommonJS"
+	// 	}
+	// }
 }

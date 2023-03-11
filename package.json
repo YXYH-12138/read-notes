@@ -2,7 +2,6 @@
 	"name": "read-notes",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"prettier": "prettier --write ."
 	},
@@ -21,3 +20,4 @@
 		"vite": "^4.1.4"
 	}
 }
+
