@@ -255,7 +255,11 @@ Module._extensions['.json'] = function(module, filename) {
 
 - setImmediate()方法与process.nextTick()方法十分类似，都是将回调函数延迟执行
 
-process.nextTick()中的回调函数执行的优先级要高于setImmediate()。这里的原因在于事件循环对观察者的检查是有先后顺序的，process.nextTick()属于**idle观察者**，setImmediate()属于**check观察者**。在每一个轮循环检查中，idle观察者先于I/O观察者，I/O观察者先于check观察者。
+事件循环对观察者的检查的先后顺序：
+
+- idle观察者 process.nextTick()
+- I/O观察者
+- check观察者 setImmediate()
 
 ```js
 // 加入两个nextTick()的回调函数
@@ -286,6 +290,43 @@ setImmediate延迟执行1
 setImmediate延迟执行2
 */
 ```
+
+## 事件循环
+
+> [Node.js (nodejs.org)](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/)
+
+**事件循环机制的阶段**
+
+- **定时器**：本阶段执行已经被 `setTimeout()` 和 `setInterval()` 的调度回调函数。
+- **待定回调**：执行延迟到下一个循环迭代的 I/O 回调。
+- **idle, prepare**：仅系统内部使用。
+- **轮询**：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 `setImmediate()` 调度的之外），其余情况 node 将在适当的时候在此阻塞。
+- **检测**：`setImmediate()` 回调函数在这里执行。
+- **关闭的回调函数**：一些关闭的回调函数，如：`socket.on('close', ...)`。
+
+我们会发现从一次事件循环的Tick来说，Node的事件循环更复杂，它也分为微任务和宏任务∶
+
+- 宏任务( macrotask ) : setTimeout、setInterval、Io事件setImmediate、close事件
+- 微任务( microtask ) : Promise的then回调、 process.nextTick、queueMicrotask
+
+**任务执行顺序**
+
+![node-event-loop](https://cdn.staticaly.com/gh/YXYH-12138/yhcdn@main/read-notes/node-event-loop.4ewa6krb86w0.webp)
+
+```js
+setTimeout(() => {
+  console.log('timeout');
+}, 0);
+
+setImmediate(() => {
+  console.log('immediate');
+});
+/*
+输出可能是timeout先，也可能是immediate先，取决于在时间循环初始化时，定时器是否已经插入到定时器观察者内部红黑树中
+*/
+```
+
+
 
 # 内存控制
 
